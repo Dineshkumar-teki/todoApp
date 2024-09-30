@@ -27,8 +27,20 @@ function App() {
       });
   };
 
+  const fetchProfileData = async () => {
+    await axios
+      .get("http://localhost:3000/users/auth/")
+      .then((response) => {
+        setProfileData(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     fetchTodosList();
+    fetchProfileData();
   }, []);
 
   const handlePostRequest = async (todo) => {

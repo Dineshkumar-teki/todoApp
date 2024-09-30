@@ -63,7 +63,7 @@ const Home = () => {
         return (
           <>
             <Navbar />
-            <section className="flex flex-col lg:flex-row justify-between min-h-[90vh]">
+            <section className="flex flex-col lg:flex-row min-h-[90vh]">
               <aside className="border-b md:border-b-none border-r p-5 md:p-3  flex flex-col gap-4 min-w-[20vw]">
                 <Sidebar
                   selectTabItem={selectTabItem}
@@ -88,9 +88,9 @@ const Home = () => {
                   <Lottie animationData={anime1} loop={true} />
                 </div>
               </aside>
-              <section className="w-screen md:min-w-[75vw] items-center p-5 md:p-10">
+              <section className="w-screen md:min-w-[75vw]  p-5 md:p-10">
                 {loader ? (
-                  <div className="loader flex justify-center min-h-[70vh]">
+                  <div className="loader flex justify-center items-center min-h-[70vh]">
                     <InfinitySpin
                       visible={true}
                       width="200"
@@ -108,7 +108,7 @@ const Home = () => {
                       src="https://img.freepik.com/free-vector/tiny-man-woman-standing-near-list-couple-ticking-off-items-check-list-flat-vector-illustration-daily-routine-busy-lifestyle-concept-banner-website-design-landing-web-page_74855-22067.jpg?w=740&t=st=1724776178~exp=1724776778~hmac=95d266aa99f7f5b703f43501eb7d88e9434e59e79c71b302a9ec15a4041d49cb"
                       alt="emptyTodoList"
                     />
-                    <p>
+                    <p className="font-xl text-slate-600">
                       Your to-do list is clear and ready for new tasks. Let’s
                       get started on something great!
                     </p>

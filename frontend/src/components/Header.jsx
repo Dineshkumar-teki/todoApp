@@ -5,7 +5,6 @@ import TodoContext from "../context/todoContext";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import defaultProfile from "../assets/defaultProfile.jpg"
 
 const Header = () => {
   const [showProfile, setShowProfile] = useState(false);
@@ -15,7 +14,6 @@ const Header = () => {
       {(value) => {
         const { profileData } = value;
         const handleLogout = () => {
-          console.log("ji")
           Cookies.remove("jwtToken");
           navigate("/sign-in");
         };
@@ -39,20 +37,27 @@ const Header = () => {
                 {(close) => <CreateTodoTab close={close} />}
               </Popup>
               <button
-                className="relative w-[50px] object-cover border-2 rounded-full"
+                className="relative w-[50px] object-scale-down border-2 rounded-full"
                 onClick={() => {
                   setShowProfile(!showProfile);
                 }}
               >
                 <img
                   className="rounded-full"
-                  src={defaultProfile}
+                  src={profileData.profilePicture}
                   alt="profile"
                 />
                 {showProfile && (
                   <div className="absolute flex flex-col gap-2 left-[-100px] z-10 text-white rounded-md top-[10vh] bg-slate-400 w-32 py-3 px-1">
-                    <button className="hover:bg-slate-600 py-1 rounded-md" >Profile</button>
-                    <button className="cursor-pointer hover:bg-slate-600 py-1 rounded-md" onClick={handleLogout} >Logout</button>
+                    <button className="hover:bg-slate-600 py-1 rounded-md">
+                      Profile
+                    </button>
+                    <button
+                      className="cursor-pointer hover:bg-slate-600 py-1 rounded-md"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
                   </div>
                 )}
               </button>

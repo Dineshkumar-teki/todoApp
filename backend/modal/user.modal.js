@@ -18,12 +18,7 @@ const userSchema = new mongoose.Schema(
     },
     profilePicture: {
       type: String,
-      default:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj71agPYnfFtK-H5CrWBlWgUQ7zSWXd6bIfw&s",
-    },
-    isAdmin: {
-      type: Boolean,
-      default: false,
+      default: "https://cdn-icons-png.flaticon.com/128/5397/5397570.png",
     },
   },
   { timestamps: true }
