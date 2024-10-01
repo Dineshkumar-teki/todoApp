@@ -24,7 +24,7 @@ function App() {
       })
       .catch((error) => {
         setLoader(false);
-        console.log(error);
+        console.log(error)
       });
   };
 

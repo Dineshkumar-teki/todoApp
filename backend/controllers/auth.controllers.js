@@ -24,7 +24,7 @@ export const signup = async (req, res, next) => {
   }
 };
 
-export const signin = async (req, res) => {
+export const signin = async (req, res, next) => {
   const { password, email } = req.body;
 
   if (!password || !email) {
@@ -39,10 +39,13 @@ export const signin = async (req, res) => {
     if (!validPassword) {
       return res.status(400).json({ message: "Invalid Password!" });
     }
-    const token = jwt.sign({ id: validUser._id }, "dinesh");
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET_TOKEN);
     const { password: pass, ...rest } = validUser._doc;
-    
-    res.status(200).json({ rest, token });
+
+    res
+      .status(200)
+      .cookie("accessToken", token, { httpOnly: true })
+      .json({ rest, token });
   } catch (error) {
     next(error);
   }

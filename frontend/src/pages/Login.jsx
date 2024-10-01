@@ -10,6 +10,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+
   if (Cookies.get("jwtToken")) {
     navigate("/");
   }
