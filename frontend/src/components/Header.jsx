@@ -37,14 +37,18 @@ const Header = () => {
                 {(close) => <CreateTodoTab close={close} />}
               </Popup>
               <div
-                className="relative w-[50px] object-scale-down border-2 rounded-full"
+                className="relative w-[40px] h-[40px] object-scale-down border-2 rounded-full"
                 onClick={() => {
                   setShowProfile(!showProfile);
                 }}
               >
                 <img
                   className="rounded-full"
-                  src={profileData.profilePicture}
+                  src={
+                    profileData.profilePicture
+                      ? profileData.profilePicture
+                      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                  }
                   alt="profile"
                 />
                 {showProfile && (
