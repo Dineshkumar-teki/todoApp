@@ -10,6 +10,9 @@ const SignUp = () => {
     password: "",
     username: "",
   });
+  if (Cookies.get("jwtToken")) {
+    navigate("/");
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!formData.username || !formData.password || !formData.email) {
@@ -36,12 +39,6 @@ const SignUp = () => {
   const handleInput = (e) => {
     setData({ ...formData, [e.target.id]: e.target.value });
   };
-
-  useEffect(() => {
-    if (Cookies.get("jwtToken") !== undefined) {
-      navigate("/");
-    }
-  }, []);
 
   return (
     <div className="flex justify-center items-center h-screen bg-slate-900">
@@ -85,7 +82,7 @@ const SignUp = () => {
               className="p-2 rounded-md outline-none"
               onChange={handleInput}
             />
-            {err && <p>{err}</p>}
+            {err && <p className="text-red-500">{err}</p>}
           </div>
 
           <button

@@ -6,6 +6,7 @@ import { useSnackbar } from "notistack";
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import SignUp from "./pages/SignUp.jsx";
+import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -16,7 +17,7 @@ function App() {
   const fetchTodosList = async () => {
     setLoader(true);
     await axios
-      .get("http://localhost:3000/todos")
+      .get("http://localhost:3000/todos/")
       .then((response) => {
         setLoader(false);
         setTodoList(response.data.todoItems);
@@ -27,20 +28,19 @@ function App() {
       });
   };
 
-  const fetchProfileData = async () => {
-    await axios
-      .get("http://localhost:3000/users/auth/")
-      .then((response) => {
-        setProfileData(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const fetchProfileData = async () => {
+  //   await axios
+  //     .get("http://localhost:3000/users/auth/")
+  //     .then((response) => {
+  //       setProfileData(response.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   useEffect(() => {
     fetchTodosList();
-    fetchProfileData();
   }, []);
 
   const handlePostRequest = async (todo) => {
@@ -110,7 +110,9 @@ function App() {
       }}
     >
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<ProtectedRoute />}>
+          <Route path="/" element={<Home />} />
+        </Route>
         <Route path="/sign-in" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
       </Routes>

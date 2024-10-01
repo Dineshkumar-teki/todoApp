@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "./Header";
 import Sidebar from "./Sidebar";
 import TodoCard from "./TodoCard";
 import TodoContext from "../context/todoContext";
 import Lottie from "lottie-react";
 import anime1 from "../assets/anime1.json";
-import Cookies from "js-cookie";
 import { InfinitySpin } from "react-loader-spinner";
+import axios from "axios";
 
 const Home = () => {
   const [hideDoneTasks, setHideDoneTasks] = useState(false);
   const [activeTabItems, setActiveTabs] = useState([]);
-
-  const navigate = useNavigate();
 
   const selectTabItem = (id) => {
     if (activeTabItems.includes(id)) {
@@ -50,11 +47,6 @@ const Home = () => {
     ));
   };
 
-  useEffect(() => {
-    if (Cookies.get("jwtToken") === undefined) {
-      navigate("/sign-in");
-    }
-  });
 
   return (
     <TodoContext.Consumer>

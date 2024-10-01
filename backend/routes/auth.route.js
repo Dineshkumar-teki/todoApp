@@ -9,9 +9,10 @@ router.post("/signin", signin);
 router.get("/", async (request, response) => {
   try {
     const user = await User.find({});
-    response.status(200).json(...user);
+    const userObj = { ...user };
+    response.status(200).json(userObj);
   } catch (error) {
-    response.status(500).json(err);
+    response.status(400).send(error);
   }
 });
 

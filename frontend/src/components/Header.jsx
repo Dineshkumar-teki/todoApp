@@ -9,14 +9,14 @@ import { useState } from "react";
 const Header = () => {
   const [showProfile, setShowProfile] = useState(false);
   const navigate = useNavigate();
+  const handleLogout = () => {
+    Cookies.remove("jwtToken");
+    navigate("/sign-in");
+  };
   return (
     <TodoContext.Consumer>
       {(value) => {
         const { profileData } = value;
-        const handleLogout = () => {
-          Cookies.remove("jwtToken");
-          navigate("/sign-in");
-        };
         return (
           <nav className="flex justify-between items-center min-h-[10vh] border-b border-gray-300 px-5">
             <h1 className="text-lg font-semibold bg-gradient-to-r from-teal-400 to-blue-500 hover:bg-gradient-to-l px-3 py-1 rounded-md text-white ">
@@ -36,7 +36,7 @@ const Header = () => {
               >
                 {(close) => <CreateTodoTab close={close} />}
               </Popup>
-              <button
+              <div
                 className="relative w-[50px] object-scale-down border-2 rounded-full"
                 onClick={() => {
                   setShowProfile(!showProfile);
@@ -60,7 +60,7 @@ const Header = () => {
                     </button>
                   </div>
                 )}
-              </button>
+              </div>
             </div>
           </nav>
         );

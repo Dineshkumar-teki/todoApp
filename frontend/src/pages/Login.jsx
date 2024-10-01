@@ -5,17 +5,14 @@ import TodoContext from "../context/todoContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [err, setErr] = useState({});
+  const [err, setErr] = useState("");
   const [formData, setData] = useState({
     email: "",
     password: "",
   });
-
-  useEffect(() => {
-    if (Cookies.get("jwtToken") !== undefined) {
-      navigate("/");
-    }
-  }, []);
+  if (Cookies.get("jwtToken")) {
+    navigate("/");
+  }
 
   return (
     <TodoContext.Consumer>
@@ -23,9 +20,6 @@ const Login = () => {
         const { handleProfileData } = value;
         const handleSubmit = async (e) => {
           e.preventDefault();
-          if (!formData.password || !formData.email) {
-            return setErr("Please fill out all fields.");
-          }
           try {
             const res = await fetch("http://localhost:3000/users/auth/signin", {
               method: "POST",
@@ -33,13 +27,12 @@ const Login = () => {
               body: JSON.stringify(formData),
             });
             const data = await res.json();
-            if (data.success === false) {
-              setErr(data.message);
-            }
             if (res.ok) {
               Cookies.set("jwtToken", data.token, { expires: 10 });
-              handleProfileData(data);
+              handleProfileData(data.rest);
               navigate("/");
+            } else {
+              setErr(data.message);
             }
           } catch (error) {
             setErr(error.message);
@@ -66,7 +59,6 @@ const Login = () => {
                     className=" p-2 rounded-md outline-none"
                     onChange={handleInput}
                   />
-                  {err.email && <p className="text-red-600">{err.email}</p>}
                 </div>
                 <div className="flex flex-col gap-2">
                   <label htmlFor="password" className="text-white">
@@ -79,10 +71,8 @@ const Login = () => {
                     className="p-2 rounded-md outline-none"
                     onChange={handleInput}
                   />
-                  {err.password && (
-                    <p className="text-red-600">{err.password}</p>
-                  )}
                 </div>
+                {err && <p className="text-white">{err}</p>}
                 <button
                   type="submit"
                   className="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-400 hover:bg-gradient-to-l font-semibold rounded-lg py-2 text-white"
