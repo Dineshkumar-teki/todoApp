@@ -30,7 +30,7 @@ const Header = () => {
                     className="relative font-semibold text-lg flex items-center gap-1 shadow-inner hover:before:content-['Create'] bg-gradient-to-r from-teal-400 to-purple-400 bg-teal-500 text-white p-2 rounded-full"
                     type="button"
                   >
-                    <FaPlus className="w-[30px] h-[30px] border-2 p-1 rounded-full " />
+                    <FaPlus className="w-[30px] h-[30px] border-2 p-1 rounded-full hover:rotate-90 duration-500" />
                   </button>
                 }
               >
