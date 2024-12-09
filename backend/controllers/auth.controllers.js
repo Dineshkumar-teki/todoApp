@@ -1,10 +1,10 @@
 import User from "../modal/user.modal.js";
 import bcryptjs from "bcryptjs";
-import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
-export const signup = async (req, res, next) => {
+export const signup = async (req, res) => {
   const { username, password, email } = req.body;
+
   if (!username || !password || !email) {
     res.status(400).send("required all fields");
   }
@@ -16,6 +16,7 @@ export const signup = async (req, res, next) => {
     password: hashedPassword,
     email,
   });
+
   try {
     await newUser.save();
     res.status(200).json("signup successfull");
@@ -24,7 +25,7 @@ export const signup = async (req, res, next) => {
   }
 };
 
-export const signin = async (req, res, next) => {
+export const signin = async (req, res) => {
   const { password, email } = req.body;
 
   if (!password || !email) {
@@ -32,13 +33,17 @@ export const signin = async (req, res, next) => {
   }
   try {
     const validUser = await User.findOne({ email });
+
     if (!validUser) {
       return res.status(404).json({ message: "User not found" });
     }
+
     const validPassword = bcryptjs.compareSync(password, validUser.password);
+
     if (!validPassword) {
       return res.status(400).json({ message: "Invalid Password!" });
     }
+
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET_TOKEN);
     const { password: pass, ...rest } = validUser._doc;
 
@@ -47,6 +52,7 @@ export const signin = async (req, res, next) => {
       .cookie("accessToken", token, { httpOnly: true })
       .json({ rest, token });
   } catch (error) {
-    next(error);
+    res.status(500).send({ msg: error });
+    console.log(error);
   }
 };

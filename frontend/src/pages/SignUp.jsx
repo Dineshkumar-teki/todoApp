@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import signUpImg from "../assets/signup1.png";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -10,9 +11,11 @@ const SignUp = () => {
     password: "",
     username: "",
   });
+
   if (Cookies.get("jwtToken")) {
     navigate("/");
   }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!formData.username || !formData.password || !formData.email) {
@@ -36,70 +39,80 @@ const SignUp = () => {
       setErr(error.message);
     }
   };
+  
   const handleInput = (e) => {
     setData({ ...formData, [e.target.id]: e.target.value });
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-slate-900">
-      <div className="w-[90%] md:w-[400px] bg-slate-600 py-10 px-5 rounded-lg">
-        <h2 className="text-center text-white font-semibold text-3xl">
-          Sign-Up
-        </h2>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="username" className="text-white">
-              Name
-            </label>
-            <input
-              id="username"
-              type="text"
-              placeholder="Enter name"
-              className=" p-2 rounded-md outline-none"
-              onChange={handleInput}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="text-white">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              placeholder="Enter email"
-              className=" p-2 rounded-md outline-none"
-              onChange={handleInput}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="password" className="text-white">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter password"
-              className="p-2 rounded-md outline-none"
-              onChange={handleInput}
-            />
-            {err && <p className="text-red-500">{err}</p>}
-          </div>
+    <div className="h-screen p-5 flex flex-wrap">
+      <div className="bg-gradient-to-bl from-orange-400 to-amber-600 border rounded-xl h-full w-[50%] flex flex-col justify-center items-center">
+        <img src={signUpImg} alt="signUpImg" className="w-[80%]" />
+        <p className="font-semibold text-white text-lg">
+          Join TaskFlow - Stay Organized and Get Things Done.
+        </p>
+      </div>
+      <div className="h-full flex justify-center items-center w-[50%]">
+        <div className="w-[400px]">
+          <h2 className="text-center font-semibold text-4xl mb-10">
+            Create an account
+          </h2>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="username" className="font-semibold text-lg">
+                Name
+              </label>
+              <input
+                id="username"
+                type="text"
+                placeholder="Name"
+                className=" p-2 rounded-md outline-none border focus:border-blue-500"
+                onChange={handleInput}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="email" className="font-semibold text-lg">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                placeholder="name@company.com"
+                className=" p-2 rounded-md outline-none border focus:border-blue-500"
+                onChange={handleInput}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="password" className="font-semibold text-lg">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                placeholder="**********"
+                className="p-2 rounded-md outline-none border focus:border-blue-500"
+                onChange={handleInput}
+              />
+              {err && <p className="text-red-500">{err}</p>}
+            </div>
 
-          <button
-            type="submit"
-            className="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-400 hover:bg-gradient-to-l font-semibold rounded-lg py-2 text-white"
-          >
-            Sign up
-          </button>
-          <button
-            className="border-amber-500 hover:border-amber-600 rounded-lg py-2 border-2 font-semibold text-white"
-            onClick={() => {
-              navigate("/sign-in");
-            }}
-          >
-            Log In
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="bg-black hover:bg-black/95 font-semibold rounded-full py-2 text-white"
+            >
+              Sign up
+            </button>
+            <p className="font-semibold text-center">
+              Already have an account?{" "}
+              <a
+                href="/sign-in"
+                className="font-serif text-lg text-blue-500 hover:underline"
+              >
+                Log in
+              </a>{" "}
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );

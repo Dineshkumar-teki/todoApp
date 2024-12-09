@@ -41,7 +41,7 @@ const TodoCard = ({ eachTask }) => {
         };
 
         return (
-          <li className="bg-yellow-200 p-3 rounded-lg flex flex-col gap-5 mb-5 hover:translate-y-[-8px] shadow-inner transition-all duration-700 ease-in-out justify-between">
+          <li className="bg-yellow-200 p-3 rounded-lg flex flex-col gap-5 mb-5 hover:translate-y-[-8px] shadow-inner shadow-orange-500 transition-all duration-700 ease-in-out justify-between">
             <div className="flex justify-between items-center relative">
               <h1
                 className={`text-2xl font-semibold ${
@@ -52,7 +52,7 @@ const TodoCard = ({ eachTask }) => {
               </h1>
               <div className="flex flex-row-reverse gap-2 ">
                 <button
-                  className="bg-amber-500 hover:bg-amber-600 shadow-inner w-10 h-10 flex items-center justify-center rounded-full"
+                  className="bg-orange-500 hover:bg-orange-600 shadow-inner w-10 h-10 flex items-center justify-center rounded-full"
                   onClick={onTodoDelete}
                 >
                   <FaTrash className="text-sm text-white" />
@@ -60,7 +60,7 @@ const TodoCard = ({ eachTask }) => {
                 <Popup
                   modal
                   trigger={
-                    <button className="bg-amber-500 hover:bg-amber-600 w-10 h-10 flex items-center justify-center shadow-inner p-3 rounded-full">
+                    <button className="bg-orange-500 hover:bg-orange-600 w-10 h-10 flex items-center justify-center shadow-inner p-3 rounded-full">
                       <MdModeEditOutline className="text-md text-white" />
                     </button>
                   }

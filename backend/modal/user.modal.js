@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
@@ -6,19 +6,19 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      minlength: 3,
+      maxlength: 20,
     },
     email: {
       type: String,
       required: true,
       unique: true,
+      match: /.+\@.+\..+/,
     },
     password: {
       type: String,
       required: true,
-    },
-    profilePicture: {
-      type: String,
-      default: "https://cdn-icons-png.flaticon.com/128/5397/5397570.png",
+      minlength: 6,
     },
   },
   { timestamps: true }

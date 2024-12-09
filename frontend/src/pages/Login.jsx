@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import TodoContext from "../context/todoContext";
+import signInImg from "../assets/signin.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -43,52 +44,67 @@ const Login = () => {
           setData({ ...formData, [e.target.id]: e.target.value });
         };
         return (
-          <div className="flex justify-center items-center h-screen bg-slate-900">
-            <div className="w-[90%] md:w-[400px] bg-slate-600 py-10 px-5 rounded-lg">
-              <h2 className="font-semibold text-3xl text-center text-white">
-                Sign-In
-              </h2>
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="email" className="text-white">
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    placeholder="Enter email"
-                    className=" p-2 rounded-md outline-none"
-                    onChange={handleInput}
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="password" className="text-white">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter password"
-                    className="p-2 rounded-md outline-none"
-                    onChange={handleInput}
-                  />
-                </div>
-                {err && <p className="text-white">{err}</p>}
-                <button
-                  type="submit"
-                  className="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-400 hover:bg-gradient-to-l font-semibold rounded-lg py-2 text-white"
+          <div className="h-screen flex bg-white p-5">
+            <div className="bg-gradient-to-bl from-sky-400 to-blue-600 flex flex-col justify-center items-center h-full w-[50%] rounded-xl bg-cover bg-center">
+              <img src={signInImg} alt="signinImg" />
+              <p className="text-center text-white font-semibold text-lg ">
+                The secret of getting ahead is getting started. <br />{" "}
+                <span className="text-xl font-serif"> ~ Mark Twain</span>
+              </p>
+            </div>
+            <div className="w-[50%]">
+              <div className="flex flex-col items-center justify-center h-full">
+                <h2 className="font-semibold text-5xl mb-2 text-center">
+                  Welcome back!
+                </h2>
+                <p className="text-center">Please enter your details</p>
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex w-[60%] flex-col gap-4 mt-10"
                 >
-                  Sign in
-                </button>
-                <button
-                  className="border-amber-500 hover:border-amber-600 rounded-lg py-2 border-2 font-semibold text-white"
-                  onClick={() => {
-                    navigate("/sign-up");
-                  }}
-                >
-                  Create Account
-                </button>
-              </form>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="email" className="text-lg font-semibold">
+                      Email
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      placeholder="name@company.com"
+                      className="p-2 rounded-md outline-none border-2 focus:border-blue-700"
+                      onChange={handleInput}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="password" className="text-lg font-semibold">
+                      Password
+                    </label>
+                    <input
+                      type="password"
+                      id="password"
+                      placeholder="**********"
+                      className="p-2 rounded-md outline-none border-2 focus:border-blue-700"
+                      onChange={handleInput}
+                    />
+                  </div>
+                  {err && <p className="text-red-500">{err}</p>}
+                  <button
+                    type="submit"
+                    className="bg-black backdrop-blur-md hover:bg-black/95 text-white shadow-sm text-lg mt-5 font-semibold rounded-full py-2"
+                  >
+                    Sign in
+                  </button>
+                  <p className="text-center font-semibold">
+                    Don't have an account?
+                    <a
+                      href="/sign-up"
+                      className="text-blue-500 hover:underline text-lg font-serif"
+                    >
+                      {" "}
+                      Sign up
+                    </a>
+                  </p>
+                </form>
+              </div>
             </div>
           </div>
         );

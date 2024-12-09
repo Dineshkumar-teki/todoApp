@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Navbar from "./Header";
 import Sidebar from "./Sidebar";
 import TodoCard from "./TodoCard";
 import TodoContext from "../context/todoContext";
 import Lottie from "lottie-react";
 import anime1 from "../assets/anime1.json";
-import { InfinitySpin } from "react-loader-spinner";
-import axios from "axios";
+import Loader from "./Loader";
+import TodoEmptyState from "./TodoEmptyState";
 
 const Home = () => {
   const [hideDoneTasks, setHideDoneTasks] = useState(false);
@@ -47,7 +47,6 @@ const Home = () => {
     ));
   };
 
-
   return (
     <TodoContext.Consumer>
       {(props) => {
@@ -80,33 +79,18 @@ const Home = () => {
                   <Lottie animationData={anime1} loop={true} />
                 </div>
               </aside>
-              <section className="w-screen md:min-w-[75vw]  p-5 md:p-10">
+
+              <div className="w-full md:min-w-[75vw] p-5 md:p-10">
                 {loader ? (
-                  <div className="loader flex justify-center items-center min-h-[70vh]">
-                    <InfinitySpin
-                      visible={true}
-                      width="200"
-                      color="blue"
-                      ariaLabel="infinity-spin-loading"
-                    />
-                  </div>
+                  <Loader />
                 ) : todoList.length ? (
                   <ul className="columns-2 max-md:columns-1 *:break-inside-avoid mb-4 list-none">
                     {displayTaskList(todoList)}
                   </ul>
                 ) : (
-                  <div className="emptyTodoList">
-                    <img
-                      src="https://img.freepik.com/free-vector/tiny-man-woman-standing-near-list-couple-ticking-off-items-check-list-flat-vector-illustration-daily-routine-busy-lifestyle-concept-banner-website-design-landing-web-page_74855-22067.jpg?w=740&t=st=1724776178~exp=1724776778~hmac=95d266aa99f7f5b703f43501eb7d88e9434e59e79c71b302a9ec15a4041d49cb"
-                      alt="emptyTodoList"
-                    />
-                    <p className="font-xl text-slate-600">
-                      Your to-do list is clear and ready for new tasks. Let’s
-                      get started on something great!
-                    </p>
-                  </div>
+                  <TodoEmptyState />
                 )}
-              </section>
+              </div>
             </section>
           </>
         );
